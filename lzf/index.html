@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>LZF Compression Filter for HDF5</title>
+</head>
+
+<body>
+
+<div style="margin: 0 auto; width: 760px; padding: 20px;">
+
+<div>
+    <div style="width: auto; float:left">
+        <a href="http://www.h5py.org"><b>HDF5 for Python</b></a></td>
+    </div>
+    <div style="text-align: right">
+        Copyright (c) 2012 <a href="http://alfven.org">Andrew Collette</a>
+    </div>
+</div>
+
+<hr>
+
+<h2>LZF Compression Filter for HDF5</h2>
+<p>
+The LZF filter is a stand-alone compression filter for HDF5, which can be
+used in place of the built-in DEFLATE (or SZIP) compressors to provide faster
+compression. The target performance point for LZF is very high-speed compression 
+with an "acceptable" compression ratio.
+</p>
+
+<p>
+In benchmark trials with 
+floating-point data (below), a filter
+pipeline with LZF typically provides 3x-5x faster compression than DEFLATE,
+2x faster decompression, and retains 50%-90% of the DEFLATE compression ratio.
+</p><p>
+Unlike SZIP, this filter works for all datatypes on which DEFLATE works,
+including compound, opaque, array and user-defined types.  There are also no
+settings to adjust.
+</p><p>
+The LZF filter is written in C and may be included in C++ applications.
+No external libraries are required.
+HDF5 versions 1.6 and 1.8 are both supported.  The license is 3-clause BSD.
+</p><p>
+This filter is maintained as part of the HDF5 for Python (h5py) project.  The
+goal of h5py is to provide access to the majority of the HDF5 C API and feature
+set from Python.  <b>A stand-alone version of the LZF filter is packaged
+inside the UNIX tarball for h5py, <a href='http://code.google.com/p/h5py/downloads/list'>available
+here</a>.</b>
+</p>
+<p>
+<ul>
+<li>Main web site and documentation: <a href="http://www.h5py.org">http://www.h5py.org</a></li>
+</ul>
+</p>
+<p>
+Based on <a href="http://home.schmorp.de/marc/liblzf.html">LibLZF</a> by
+Marc Lehmann.  
+</p>
+
+<h2>Performance</h2>
+<p>
+Compression performance depends on many factors, including the
+storage datatype and the range of values used.  LZF can be used on arbitrary
+HDF5 types, including strings, compound and arrays in addition to scalars.
+However, performance for multi-byte floating point and integer data sets is
+of particular importance, as they are so commonly used.
+</p><p>
+Therefore, this simple benchmark compares the performance of several HDF5
+compression techniques on single-precision floating-point data sets of various
+complexity. For LZF, DEFLATE and the <a href="http://pytables.org">PyTables</a>
+LZO filter, the HDF5 SHUFFLE filter is also applied.  The measured quantity
+for all filters is the performance of the entire pipeline.
+</p>
+<ul>
+<li>HDF5 1.8.2
+<li>4-byte floating-point data
+<li>4MB (1,024,000 element) dataset, 190kB chunk size
+<li>Times are averaged over 200 rounds of compression 
+<li>Used H5FD_CORE driver; HDF5 file exists only in memory to avoid confusion
+    with disk access times.
+<li>Compiled on 32-bit Linux, with gcc -O3
+</ul>
+
+The following compression techniques were tested:
+
+<ul>
+<li>No compression
+<li>SHUFFLE + LZF
+<li>SHUFFLE + PyTables LZO
+<li>SHUFFLE + GZIP (level 1)
+<li>SZIP (NN, 16)
+</ul>
+
+The benchmark program (and a Python program to generate the test files) may be
+downloaded from the <a href="http://code.google.com/p/h5py">h5py
+SVN server</a> from "/svn/bench".
+
+<p>
+Compression ratio is measured as the percent reduction in file size; 0.0% is
+uncompressed while 100% would be perfect compression.
+</p>
+
+<p>
+Also keep in mind that even with a 200-round ensemble, these times are not
+precise to more than a few milliseconds.  Additionally, only one platform (32-bit
+Intel Linux) was tested.
+</p>
+
+<h3>Trivial data <tt>data[i] = i</tt></h3>
+
+<table width=100%>
+<tr>
+<td>Compression Type</td>
+<td>Compress time (ms)</td>
+<td>Decompress time (ms)</td>
+<td>Compressed by</td>
+</tr>
+<tr><td>NULL   </td><td>10.7</td><td>6.5</td><td>0.00%</td></tr>
+<tr bgcolor=#eeeeee><td>LZF    </td><td>18.6</td><td>17.8</td><td>96.66%</td></tr>
+<tr><td>LZO    </td><td>20.2</td><td>17.9</td><td>98.55%</td></tr>
+<tr><td>GZIP   </td><td>58.1</td><td>40.5</td><td>98.53%</td></tr>
+<tr><td>SZIP   </td><td>63.1</td><td>61.3</td><td>72.68%</td></tr>
+
+</table>
+
+<h3>Sine wave <tt>data[i] = sin(i/32)</tt></h3>
+
+<table width=100%>
+<tr>
+<td>Compression type</td>
+<td>Compress time (ms)</td>
+<td>Decompress time (ms)</td>
+<td>Compressed by</td>
+</tr>
+<tr><td>NULL   </td><td>10.1</td><td>6.5</td><td>0.00%</td></tr>
+<tr bgcolor=#eeeeee><td>LZF    </td><td>54.5</td><td>22.2</td><td>38.42%</td></tr>
+<tr><td>LZO    </td><td>86.9</td><td>22.9</td><td>44.24%</td></tr>
+<tr><td>GZIP   </td><td>215.1</td><td>58.6</td><td>45.54%</td></tr>
+<tr><td>SZIP   </td><td>101.8</td><td>94.5</td><td>27.05%</td></tr>
+</table>
+
+<h3>Noisy sine wave <tt>data[i] = sin(i/32) + random(-0.25 to 0.25)</tt></h3>
+
+<table width=100%>
+<tr>
+<td>Compression type</td>
+<td>Compress time (ms)</td>
+<td>Decompress time (ms)</td>
+<td>Compressed by</td>
+</tr>
+<tr><td>NULL   </td><td>10.8</td><td>6.5</td><td>0.00%</td></tr>
+<tr bgcolor=#eeeeee><td>LZF    </td><td>65.5</td><td>24.4</td><td>15.54%</td></tr>
+<tr><td>LZO    </td><td>125.4</td><td>26.7</td><td>17.25%</td></tr>
+<tr><td>GZIP   </td><td>298.6</td><td>64.8</td><td>20.05%</td></tr>
+<tr><td>SZIP   </td><td>115.2</td><td>102.5</td><td>16.29%</td></tr>
+</table>
+
+<h3>Random float data <tt>data[i] = random(0 to 1.0)</tt></h3>
+
+(Note this is NOT the same thing as random bits.)
+<br><br>
+
+<table width=100%>
+<tr>
+<td>Compression type</td>
+<td>Compress time (ms)</td>
+<td>Decompress time (ms)</td>
+<td>Compressed by</td>
+</tr>
+<tr><td>NULL   </td><td>9.0</td><td>7.8</td><td>0.00%</td></tr>
+<tr bgcolor=#eeeeee><td>LZF    </td><td>67.8</td><td>24.9</td><td>8.95%</td></tr>
+<tr><td>LZO    </td><td>124.0</td><td>30.6</td><td>12.78%</td></tr>
+<tr><td>GZIP   </td><td>305.4</td><td>67.2</td><td>17.05%</td></tr>
+<tr><td>SZIP   </td><td>120.6</td><td>107.7</td><td>15.56%</td></tr>
+</table>
+
+<h3>Different chunk sizes</h3>
+
+Filter performance can depend on the size of the chunk used.  Here LZF, LZO
+and GZIP are compared for a variety of different chunk sizes as applied to
+the "sine wave" dataset above.
+
+<h4>Compression ratio</h4>
+
+<table width=100%>
+<tr>
+<td width=150px>Chunk size</td>
+<td bgcolor=#eeeeee>LZF</td>
+<td>LZO</td>
+<td>GZIP</td>
+</tr>
+<tr><td>32k</td><td bgcolor=#eeeeee>35.74%</td><td>36.57%</td><td>38.25%</td></tr>
+<tr><td>96k</td><td bgcolor=#eeeeee>37.93%</td><td>41.98%</td><td>44.18%</td></tr>
+<tr><td>192k</td><td bgcolor=#eeeeee>38.42%</td><td>44.24%</td><td>45.54%</td></tr>
+<tr><td>384k</td><td bgcolor=#eeeeee>38.61%</td><td>45.38%</td><td>46.35%</td></tr>
+</table>
+
+<h4>Compress/decompress time (msec)</h4>
+
+<table width=100%>
+<tr>
+<td width=150px>Chunk size</td>
+<td colspan=2 bgcolor=#eeeeee>LZF</td>
+<td colspan=2>LZO</td>
+<td colspan=2>GZIP</td>
+</tr>
+<tr><td>32k</td> <td bgcolor=#eeeeee>63.8</td><td bgcolor=#eeeeee>20.1</td> <td>96.7</td><td>18.4</td> <td>172.0</td><td>43.0</td> </tr>
+<tr><td>96k</td> <td bgcolor=#eeeeee>57.0</td><td bgcolor=#eeeeee>20.4</td> <td>88.4</td><td>17.4</td> <td>202.2</td><td>50.6</td> </tr>
+<tr><td>192k</td> <td bgcolor=#eeeeee>55.7</td><td bgcolor=#eeeeee>22.6</td> <td>90.2</td><td>21.6</td> <td>214.1</td><td>58.6</td> </tr>
+<tr><td>384k</td> <td bgcolor=#eeeeee>57.5</td><td bgcolor=#eeeeee>27.2</td> <td>93.8</td><td>27.2</td> <td>221.5</td><td>65.3</td> </tr>
+</table>
+
+
+</div>
+  <script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+  var pageTracker = _gat._getTracker("UA-4330749-6");
+  pageTracker._trackPageview();
+  </script>
+</body>
+</html>
