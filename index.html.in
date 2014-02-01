@@ -27,8 +27,8 @@
 	<div id="menu">
 	    <p class="menulinks">
 	    <strong class="hide">Main menu:</strong>
-	    <a class="menulink" href="http://code.google.com/p/h5py/downloads/list">Downloads</a><span class="hide"> | </span>
-	    <a class="menulink" href="docs">Documentation</a><span class="hide"> | </span>
+	    <a class="menulink" href="https://pypi.python.org/pypi/h5py">Downloads</a><span class="hide"> | </span>
+	    <a class="menulink" href="http://www.h5py.org/docs">Documentation</a><span class="hide"> | </span>
 	    <a class="menulink" href="http://github.com/h5py/h5py">GitHub Project</a>
 	    </p>
 	</div>
@@ -54,10 +54,11 @@ from h5py.</p>
 <h2>Downloads</h2>
 <p>On Linux & Mac OS X, you can also install via easy_install or pip.  The <a href="docs/intro/build.html">install guide</a> is also helpful.</p>
 <ul>
-<li><a href="http://h5py.googlecode.com/files/h5py-%(version)s.tar.gz">h5py-%(version)s.tar.gz</a> - UNIX tarball; requires HDF5 1.8.3+</li>
-<li><a href="http://h5py.googlecode.com/files/h5py-%(version)s.win32-py2.6.msi">h5py-%(version)s.win32-py2.6.msi</a> - Windows installer for Python 2.6 (includes HDF5)</li>
-<li><a href="http://h5py.googlecode.com/files/h5py-%(version)s.win32-py2.7.msi">h5py-%(version)s.win32-py2.7.msi</a> - Windows installer for Python 2.7 (includes HDF5)</li>
-<li><a href="http://h5py.googlecode.com/files/h5py-%(version)s.win32-py3.2.msi">h5py-%(version)s.win32-py3.2.msi</a> - Windows installer for Python 3.2 (includes HDF5)</li>
+<li><a href="https://pypi.python.org/packages/source/h/h5py/h5py-%(version)s.tar.gz">h5py-%(version)s.tar.gz</a> - UNIX tarball; requires HDF5 1.8.3+</li>
+<li><a href="https://pypi.python.org/packages/2.6/h/h5py/h5py-%(version)s.win32-py2.6.exe">h5py-%(version)s.win32-py2.6.exe</a> - Windows installer for Python 2.6 (includes HDF5)</li>
+<li><a href="https://pypi.python.org/packages/2.7/h/h5py/h5py-%(version)s.win32-py2.7.exe">h5py-%(version)s.win32-py2.7.exe</a> - Windows installer for Python 2.7 (includes HDF5)</li>
+<li><a href="https://pypi.python.org/packages/3.2/h/h5py/h5py-%(version)s.win32-py3.2.exe">h5py-%(version)s.win32-py3.2.exe</a> - Windows installer for Python 3.2 (includes HDF5)</li>
+<li><a href="https://pypi.python.org/packages/3.3/h/h5py/h5py-%(version)s.win32-py3.3.exe">h5py-%(version)s.win32-py3.3.exe</a> - Windows installer for Python 3.2 (includes HDF5)</li>
 </ul>
 <p>Older versions of h5py <a href="http://code.google.com/p/h5py/downloads/list?can=1">are also available</a>.</p>
 
@@ -69,7 +70,7 @@ from h5py.</p>
 
 <br>
 	</div>
-    
+    <div id="sidebox"><a href="http://shop.oreilly.com/product/0636920030249.do" target="_blank"><img width=180px height=236px src="http://www.h5py.org/cat.gif" class="foobar"></a></div>
 <p class="footer">Copyright &copy; 2008 - 2013 <a href="index.html">Andrew Collette & contributers</a><br>
     Based on a template by <a href="http://andreasviklund.com/">Andreas Viklund</a><br>
 </p>

@@ -7,7 +7,9 @@ For more information, see http://andreasviklund.com/templates/variant-duo/
 body {padding:0; margin:0; font:83% verdana,sans-serif; background-color:#e4e4e4; color:#333; text-align:center; line-height:1.6em;}
 #wrap {width:760px; text-align:left; margin:0 auto;}
 #menu {text-align:right;margin-top:-40px;}
-#content {background:#fff; text-align:left; padding:20px 20px 5px; margin:15px 0 15px 0;}
+#content {background:#fff; text-align:left; padding:20px 20px 5px; margin:15px 0 15px 0; float:left;}
+#sidebox {float: left; margin-right:-760px; padding: 10px; border: 20px solid #e4e4e4; background-color: #fff;}
+.foobar {display: block; margin: 0 auto; border:1px solid black}
 
 /* HTML Tags */
 a {text-decoration:none; font-weight:400; color: /*#b59e4e*/#5555ff;}
