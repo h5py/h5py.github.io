@@ -28,7 +28,7 @@
 	    <p class="menulinks">
 	    <strong class="hide">Main menu:</strong>
 	    <a class="menulink" href="https://pypi.python.org/pypi/h5py">Downloads</a><span class="hide"> | </span>
-	    <a class="menulink" href="http://www.h5py.org/docs">Documentation</a><span class="hide"> | </span>
+	    <a class="menulink" href="http://docs.h5py.org">Documentation</a><span class="hide"> | </span>
 	    <a class="menulink" href="http://github.com/h5py/h5py">GitHub Project</a>
 	    </p>
 	</div>
@@ -43,7 +43,7 @@
 
 <p>It lets you store huge amounts of numerical data, and easily manipulate that data from NumPy.  For example, you can slice into multi-terabyte datasets stored on disk, as if they were real NumPy arrays.  Thousands of datasets can be stored in a single file, categorized and tagged however you want.</p>
 
-<p>H5py uses straightforward NumPy and Python metaphors, like dictionary and NumPy array syntax.  For example, you can iterate over datasets in a file, or check out the .shape or .dtype attributes of datasets.  You don't need to know anything special about HDF5 <a href="docs/intro/quick.html">to get started</a>.
+<p>H5py uses straightforward NumPy and Python metaphors, like dictionary and NumPy array syntax.  For example, you can iterate over datasets in a file, or check out the .shape or .dtype attributes of datasets.  You don't need to know anything special about HDF5 <a href="http://docs.h5py.org/en/latest/quick.html">to get started</a>.
 
 <p>In addition to the easy-to-use high level interface, h5py rests on a object-oriented
 Cython wrapping of the HDF5 C API.  Almost anything you can do from C in HDF5, you can do
@@ -51,8 +51,8 @@ from h5py.</p>
 
 <p>Best of all, the files you create are in a widely-used standard binary format, which you can exchange with <a href="http://earthobservatory.nasa.gov/Features/HDFEOS/">other people</a>, including those who use programs like IDL and MATLAB.</p>
 
-<h2>Downloads</h2>
-<p>On Linux & Mac OS X, you can also install via easy_install or pip.  The <a href="docs/intro/build.html">install guide</a> is also helpful.</p>
+<h2>Stable Downloads</h2>
+<p>On Linux & Mac OS X, you can also <a href="http://docs.h5py.org/en/latest/build.html">install</a> via easy_install or pip.</p>
 <ul>
 <li><a href="https://pypi.python.org/packages/source/h/h5py/h5py-%(version)s.tar.gz">h5py-%(version)s.tar.gz</a> - UNIX tarball; requires HDF5 1.8.3+</li>
 <li><a href="https://pypi.python.org/packages/2.6/h/h5py/h5py-%(version)s.win32-py2.6.exe">h5py-%(version)s.win32-py2.6.exe</a> - Windows installer for Python 2.6 (includes HDF5)</li>
@@ -60,13 +60,13 @@ from h5py.</p>
 <li><a href="https://pypi.python.org/packages/3.2/h/h5py/h5py-%(version)s.win32-py3.2.exe">h5py-%(version)s.win32-py3.2.exe</a> - Windows installer for Python 3.2 (includes HDF5)</li>
 <li><a href="https://pypi.python.org/packages/3.3/h/h5py/h5py-%(version)s.win32-py3.3.exe">h5py-%(version)s.win32-py3.3.exe</a> - Windows installer for Python 3.2 (includes HDF5)</li>
 </ul>
-<p>Older versions of h5py <a href="http://code.google.com/p/h5py/downloads/list?can=1">are also available</a>.</p>
+<p>A full list of downloads is <a href="https://pypi.python.org/pypi/h5py">available at PyPI</a>.  Really old versions are at the <a href="http://code.google.com/p/h5py/downloads/list?can=1">old Google Code</a> site.
 
 <h2>Documentation</h2>
-<p>The <a href="docs">h5py user manual</a> is a great place to start; you may also want to check out the <a href="http://github.com/h5py/h5py/wiki/FAQ">FAQ</a>.</p>
-<p>We have a mailing list <a href="http://groups.google.com/group/h5py">at Google Groups</a> for user questions and development.</p>
-<p>The lead developer of h5py also maintains a blog at <a href="http://alfven.org">alfven.org</a>.</p>
+<p>The <a href="http://docs.h5py.org">h5py user manual</a> is a great place to start; you may also want to check out the <a href="http://docs.h5py.org/en/latest/faq.html">FAQ</a>.</p>
+<p>There's an <a href="http://shop.oreilly.com/product/0636920030249.do">O'Reilly book</a>, <i>Python and HDF5</i>, written by the lead author of h5py, Andrew Collette.
 </p>
+<p>We also have a mailing list <a href="http://groups.google.com/group/h5py">at Google Groups</a> for user questions and development.</p>
 
 <br>
 	</div>
